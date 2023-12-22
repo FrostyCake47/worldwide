@@ -12,12 +12,17 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-  void worldSetup() async {
-    WorldTime india = WorldTime(name: "India", url: 'Asia/Kolkata');
-    await india.getData();
-    print(india.time);
+
+  Future<void> worldSetup() async {
+    WorldTime instance = WorldTime(name: "India", url: 'Asia/Kolkata');
+    await instance.getData();
+    //print("Current time at /loading: $instance.time");
+
+    if (!context.mounted) return;
+    Navigator.pushReplacementNamed(context, "/home", arguments: {'time':instance.time});
   }
-  
+
+
   @override
   void initState() {
     super.initState();
