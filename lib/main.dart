@@ -16,6 +16,11 @@ void main() => runApp(MaterialApp(
     "/choose_location" : (context) => ChooseLocation(),
   },
   debugShowCheckedModeBanner: false,
-  theme: ThemeData(scaffoldBackgroundColor: Color.fromARGB(255, 28, 28, 28)),
+  theme: ThemeData(
+    scaffoldBackgroundColor: Color.fromARGB(255, 28, 28, 28),
+    appBarTheme: AppBarTheme(
+      backgroundColor: Colors.amber,
+
+    )),
 ));
 

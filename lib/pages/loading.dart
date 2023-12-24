@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'package:worldwide/services/worldtime.dart';
 
@@ -17,9 +18,11 @@ class _LoadingState extends State<Loading> {
     WorldTime instance = WorldTime(name: "India", url: 'Asia/Kolkata');
     await instance.getData();
 
-    print("printing instance time ${instance.time}");
     if(!mounted) return;
-    Navigator.pushReplacementNamed(context, "/home", arguments: {'time':instance.time});
+    Navigator.pushReplacementNamed(context, "/home", 
+    arguments: {'time':instance.time, 
+                'location':instance.name,
+                'isDaytime':instance.isDayTime.toString()});
   }
 
 
@@ -31,19 +34,9 @@ class _LoadingState extends State<Loading> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text("Loading screen"),
-      ),
-      
+    return const Scaffold(
       body: Center(
-        child: FutureBuilder(
-          future: worldSetup(),
-          builder: (context, snapshot) {
-            // You can show a loading indicator here if needed
-            return CircularProgressIndicator();
-          },
-        ),
+        child: SpinKitSpinningLines(color: Colors.amber,)
       ),
     );
   }
