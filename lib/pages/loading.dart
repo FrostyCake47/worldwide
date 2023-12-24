@@ -12,13 +12,13 @@ class Loading extends StatefulWidget {
 }
 
 class _LoadingState extends State<Loading> {
-
   Future<void> worldSetup() async {
+    print("currently in loading (worldSetup)");
     WorldTime instance = WorldTime(name: "India", url: 'Asia/Kolkata');
     await instance.getData();
-    //print("Current time at /loading: $instance.time");
 
-    if (!context.mounted) return;
+    print("printing instance time ${instance.time}");
+    if(!mounted) return;
     Navigator.pushReplacementNamed(context, "/home", arguments: {'time':instance.time});
   }
 
@@ -34,6 +34,16 @@ class _LoadingState extends State<Loading> {
     return Scaffold(
       appBar: AppBar(
         title: Text("Loading screen"),
+      ),
+      
+      body: Center(
+        child: FutureBuilder(
+          future: worldSetup(),
+          builder: (context, snapshot) {
+            // You can show a loading indicator here if needed
+            return CircularProgressIndicator();
+          },
+        ),
       ),
     );
   }
