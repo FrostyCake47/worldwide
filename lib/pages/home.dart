@@ -32,7 +32,8 @@ class _HomeState extends State<Home> {
       body: Container(
         decoration: BoxDecoration(
           image: DecorationImage(
-            image: bg)
+            image: bg,
+            fit: BoxFit.cover)
         ),
         child: Center(
           child: Column(

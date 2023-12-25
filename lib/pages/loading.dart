@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 import 'dart:convert';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-
 import 'package:worldwide/services/worldtime.dart';
 
 class Loading extends StatefulWidget {
@@ -15,16 +14,15 @@ class Loading extends StatefulWidget {
 class _LoadingState extends State<Loading> {
   Future<void> worldSetup() async {
     print("currently in loading (worldSetup)");
-    WorldTime instance = WorldTime(name: "India", url: 'Asia/Kolkata');
+    WorldTime instance = WorldTime(location: "India", url: 'Asia/Kolkata', flag: 'india.png');
     await instance.getData();
 
     if(!mounted) return;
     Navigator.pushReplacementNamed(context, "/home", 
     arguments: {'time':instance.time, 
-                'location':instance.name,
+                'location':instance.location,
                 'isDaytime':instance.isDayTime.toString()});
   }
-
 
   @override
   void initState() {
